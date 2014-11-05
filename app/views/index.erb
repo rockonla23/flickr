@@ -1,0 +1,39 @@
+<div class="container">
+  <h1> Wazzaapppppppp! </h1>
+  <div id="photos" class="row">
+    <% if @photos %>
+      <% @photos.each do |p| %>
+        <div class="photo span3"><a href="/photos/<%= p.photos.id %>/photos/<%= p.id %>"><img src=<%= p.source_url(:path) %> class="img-polaroid"></a></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#photos").masonry({
+      itemSelector: '.photo',
+      isAnimated: true,
+      columnWidth: function( containerWidth ) {
+
+        // do nothing for browsers with no media query support
+        // .container will always be 940px
+        if($(".container").width() == 940) {
+          return 240;
+        }
+
+        var width = $(window).width();
+        var col = 300;
+
+        if(width < 1200 && width >= 980) {
+          col = 240;
+        }
+        else if(width < 980 && width >= 768) {
+          col = 186;
+        }
+
+        return col;
+      }
+    });
+  });
+</script>
